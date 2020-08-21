@@ -2,3 +2,7 @@
 .Line td {
     padding: 10px;
 }
+
+.Line .name {
+    cursor: pointer;
+}
