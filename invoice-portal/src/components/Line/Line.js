@@ -5,6 +5,7 @@ const Line = props => {
     const [product, setProduct] = useState(props.product);
     const [subtotal, setSubtotal] = useState(0);
     const [quantity, setQuantity] = useState(0);
+    const [formatUnits, setFormatUnits] = useState(0);
 
     const moneyFormat = nb => nb.toLocaleString('en-CA', {
         style: 'currency',
@@ -21,7 +22,7 @@ const Line = props => {
     const calculateSubtotal = () => {
         if (product) {
             let result = 0;
-            result = product.unitPrice * quantity;
+            result = (product.unitPrice * formatUnits) * quantity;
             props.changeQuantity(result);
             return moneyFormat(result);
         }
@@ -31,12 +32,13 @@ const Line = props => {
         if (props.product) {
             setProduct(productFormat());
             setSubtotal(calculateSubtotal());
+            setFormatUnits(props.product.formats[0].qty);
         }
     }, [props.product]);
 
     useEffect(() => {
         setSubtotal(calculateSubtotal());
-    }, [quantity])
+    }, [quantity, formatUnits])
 
     return (
         <tr className="Line">
@@ -46,6 +48,7 @@ const Line = props => {
                     <th>Name</th>
                     <th>Dimensions</th>
                     <th>Unit price</th>
+                    <th>Format</th>
                     <th>Quantity</th>
                     <th>Subtotal</th>
                 </>
@@ -57,6 +60,11 @@ const Line = props => {
                     <td>{product.name}</td>
                     <td>({product.dimensions})</td>
                     <td>{product.formattedUnitPrice}</td>
+                    <td><select onChange={(e) => setFormatUnits(parseFloat(e.target.value))}>
+                        {props.product.formats.map((format, index) => {
+                            return <option value={format.qty} key={index}>{format.name} ({format.qty} units)</option>
+                        })}
+                    </select></td>
                     <td><input type="number" onChange={(e) => setQuantity(e.target.value)} value={quantity} /></td>
                     <td>{subtotal}</td>
                 </>
