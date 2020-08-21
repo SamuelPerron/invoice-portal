@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Line from '../Line/Line';
 
-const ProductSelection = props => {
+const ProductsSelection = props => {
     // Remove duplicates
     const moneyFormat = nb => nb.toLocaleString('en-CA', {
         style: 'currency',
@@ -21,6 +21,16 @@ const ProductSelection = props => {
         }
     }
 
+    const constructOrder = () => {
+        // Merging products with their respective quantities
+        // Then removing products that don't have any quantity
+        return [...props.products].map(p => {
+            let index = quantities.findIndex(q => q.id === p.id);
+            p.quantity = quantities[index].subtotal / p.unitPrice;
+            return p;
+        }).filter(p => p.quantity > 0);
+    }
+
     useEffect(() => {
         setQuantities([...props.products].map(p => ({
             id: p.id,
@@ -33,7 +43,7 @@ const ProductSelection = props => {
     }, [quantities]);
 
     return (
-        <div className="ProductSelection">
+        <div className="ProductsSelection">
             <table>
                 <thead>
                     <Line context={-1} />
@@ -49,9 +59,9 @@ const ProductSelection = props => {
                 </tbody>
             </table>
             <p>Total: <strong>{total}</strong></p>
-            <button>Next step</button>
+            <button onClick={() => props.submit(constructOrder())}>Next step</button>
         </div>
     );
 }
 
-export default ProductSelection;
+export default ProductsSelection;

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import ProductSelection from '../../components/ProductSelection/ProductSelection';
+import ProductsSelection from '../../components/ProductsSelection/ProductsSelection';
 
 const Order = props => {
     const [step, setStep] = useState(1);
 
-    const submitOrderHandler = () => {
-        console.log('Oh !');
+    const submitOrderHandler = (order) => {
+        console.log(order);
     }
 
-    const stepOneJsx = <ProductSelection
+    const stepOneJsx = <ProductsSelection
                             products={props.products}
-                            submit={submitOrderHandler} />;
+                            submit={order => submitOrderHandler(order)} />;
 
     return (
         <div className="Order">
