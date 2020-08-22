@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Line from '../Line/Line';
 import Modal from '../Modal/Modal';
+import Product from '../Product/Product';
 
 
 const ProductsSelection = props => {
@@ -67,9 +68,7 @@ const ProductsSelection = props => {
 
             { toggleModal.open ?
                 <Modal close={() => setToggleModal({ open: false, product: null })}>
-                    <h1>{props.products[toggleModal.product].name}</h1>
-                    <h2>{props.products[toggleModal.product].code}</h2>
-                    <p>{props.products[toggleModal.product].description}</p>
+                    <Product infos={props.products[toggleModal.product]} />
                 </Modal>
             : null }
         </div>
