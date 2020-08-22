@@ -57,7 +57,7 @@ const Line = props => {
             { props.context === 1 ?
                 <>
                     <td>[{product.code}]</td>
-                    <td>{product.name}</td>
+                    <td onClick={props.openModal}><span className="name">{product.name}</span></td>
                     <td>({product.dimensions})</td>
                     <td>{product.formattedUnitPrice}</td>
                     <td><select onChange={(e) => setFormatUnits(parseFloat(e.target.value))}>

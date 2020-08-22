@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Line from '../Line/Line';
+import Modal from '../Modal/Modal';
+import Product from '../Product/Product';
+
 
 const ProductsSelection = props => {
     // Remove duplicates
@@ -11,6 +14,7 @@ const ProductsSelection = props => {
 
     const [total, setTotal] = useState(moneyFormat(0));
     const [quantities, setQuantities] = useState([]);
+    const [toggleModal, setToggleModal] = useState({ open: false, product: null });
 
     const quantitiesChangedHandler = (id, subtotal) => {
         if (quantities.length > 0) {
@@ -54,12 +58,19 @@ const ProductsSelection = props => {
                             product={product}
                             context={1}
                             changeQuantity={subtotal => quantitiesChangedHandler(product.id, subtotal)}
+                            openModal={() => setToggleModal({ open: true, product: index })}
                             key={index} />
                     })}
                 </tbody>
             </table>
             <p>Total: <strong>{total}</strong></p>
             <button onClick={() => props.submit(constructOrder())}>Next step</button>
+
+            { toggleModal.open ?
+                <Modal close={() => setToggleModal({ open: false, product: null })}>
+                    <Product infos={props.products[toggleModal.product]} />
+                </Modal>
+            : null }
         </div>
     );
 }
