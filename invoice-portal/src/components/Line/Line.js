@@ -5,7 +5,8 @@ const Line = props => {
     const [product, setProduct] = useState(props.product);
     const [subtotal, setSubtotal] = useState(0);
     const [quantity, setQuantity] = useState(0);
-    const [formatUnits, setFormatUnits] = useState(0);
+    const [format, setFormat] = useState({});
+    const [quantityAfterFormat, setQuantityAfterFormat] = useState(0);
 
     const moneyFormat = nb => nb.toLocaleString('en-CA', {
         style: 'currency',
@@ -22,8 +23,8 @@ const Line = props => {
     const calculateSubtotal = () => {
         if (product) {
             let result = 0;
-            result = (product.unitPrice * formatUnits) * quantity;
-            props.changeQuantity(result);
+            result = (product.unitPrice * format.qty) * quantity;
+            props.changeQuantity(result, format);
             return moneyFormat(result);
         }
     }
@@ -31,14 +32,27 @@ const Line = props => {
     useEffect(() => {
         if (props.product) {
             setProduct(productFormat());
-            setSubtotal(calculateSubtotal());
-            setFormatUnits(props.product.formats[0].qty);
+            if (props.context === 1) {
+                if (props.product.quantity) {
+                    setQuantity(props.product.quantity)
+                    setFormat(props.product.formats.find(f => f.id === props.product.formatId));
+                } else {
+                    setSubtotal(calculateSubtotal());
+                    setFormat(props.product.formats[0]);
+                }
+            } else if (props.context === 2) {
+                setFormat(props.product.formats.find(f => f.id === props.product.formatId));
+            }
         }
     }, [props.product]);
 
     useEffect(() => {
-        setSubtotal(calculateSubtotal());
-    }, [quantity, formatUnits])
+        if (props.context === 1) {
+            setSubtotal(calculateSubtotal());
+        } else if (props.context === 2) {
+            setQuantityAfterFormat(props.product.quantity / format.qty);
+        }
+    }, [quantity, format])
 
     return (
         <tr className="Line">
@@ -60,13 +74,27 @@ const Line = props => {
                     <td onClick={props.openModal}><span className="name">{product.name}</span></td>
                     <td>({product.dimensions})</td>
                     <td>{product.formattedUnitPrice}</td>
-                    <td><select onChange={(e) => setFormatUnits(parseFloat(e.target.value))}>
-                        {props.product.formats.map((format, index) => {
-                            return <option value={format.qty} key={index}>{format.name} ({format.qty} units)</option>
+                    <td><select
+                            onChange={(e) => setFormat(props.product.formats.find(f => f.id === parseInt(e.target.value)))}
+                            defaultValue={props.product.formatId}>
+                        {props.product.formats.map((f, index) => {
+                            return <option value={f.id} key={index}>{f.name} ({f.qty} units)</option>
                         })}
                     </select></td>
                     <td><input type="number" onChange={(e) => setQuantity(e.target.value)} value={quantity} /></td>
                     <td>{subtotal}</td>
+                </>
+            : null }
+
+            { props.context === 2 ?
+                <>
+                    <td>[{product.code}]</td>
+                    <td onClick={props.openModal}><span className="name">{product.name}</span></td>
+                    <td>({product.dimensions})</td>
+                    <td>{product.formattedUnitPrice}</td>
+                    <td>{format.name} ({format.qty} units)</td>
+                    <td>{quantityAfterFormat} ({product.quantity} units)</td>
+                    <td>{moneyFormat(product.subtotal)}</td>
                 </>
             : null }
         </tr>
