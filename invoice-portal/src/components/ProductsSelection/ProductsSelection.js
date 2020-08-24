@@ -16,11 +16,12 @@ const ProductsSelection = props => {
     const [quantities, setQuantities] = useState([]);
     const [toggleModal, setToggleModal] = useState({ open: false, product: null });
 
-    const quantitiesChangedHandler = (id, subtotal) => {
+    const quantitiesChangedHandler = (id, subtotal, format) => {
         if (quantities.length > 0) {
             let newQuantities = [...quantities];
             let index = newQuantities.findIndex(q => q.id === id);
             newQuantities[index].subtotal = subtotal;
+            newQuantities[index].formatId = format.id;
             setQuantities(newQuantities);
         }
     }
@@ -28,11 +29,16 @@ const ProductsSelection = props => {
     const constructOrder = () => {
         // Merging products with their respective quantities
         // Then removing products that don't have any quantity
-        return [...props.products].map(p => {
-            let index = quantities.findIndex(q => q.id === p.id);
-            p.quantity = quantities[index].subtotal / p.unitPrice;
+        let order = {};
+        order.products = [...props.products].map(p => {
+            let quantityIndex = quantities.findIndex(q => q.id === p.id);
+            p.quantity = quantities[quantityIndex].subtotal / p.unitPrice;
+            p.formatId = quantities[quantityIndex].formatId;
+            p.subtotal = quantities[quantityIndex].subtotal;
             return p;
         }).filter(p => p.quantity > 0);
+        order.total = total;
+        return order;
     }
 
     useEffect(() => {
@@ -57,7 +63,7 @@ const ProductsSelection = props => {
                         return <Line
                             product={product}
                             context={1}
-                            changeQuantity={subtotal => quantitiesChangedHandler(product.id, subtotal)}
+                            changeQuantity={(subtotal, format) => quantitiesChangedHandler(product.id, subtotal, format)}
                             openModal={() => setToggleModal({ open: true, product: index })}
                             key={index} />
                     })}
