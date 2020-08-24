@@ -8,7 +8,7 @@ const Order = props => {
     const [order, setOrder] = useState({});
     const [title, setTitle] = useState('Place an order');
 
-    useEffect(() => {
+    useEffect(() => { // Set default for products
         setProducts(props.products);
     }, [props.products]);
 
@@ -36,14 +36,23 @@ const Order = props => {
         setStep(1);
     }
 
+    const moneyFormat = nb => nb.toLocaleString('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        minimumFractionDigits: 4
+    });
+
     const stepOneJsx = <ProductsSelection
+                            openProductModal={id => props.openProductModal(id)}
                             products={products}
-                            submit={order => submitOrderHandler(order)} />;
+                            submit={order => submitOrderHandler(order)}
+                            moneyFormat={nb => moneyFormat(nb)} />;
 
     const stepTwoJsx = <ProductsValidation
                             order={order}
                             submit={order => validateOrderHandler(order)}
-                            back={oldOrder => goBackHandler(oldOrder)} />;
+                            back={oldOrder => goBackHandler(oldOrder)}
+                            moneyFormat={nb => moneyFormat(nb)} />;
 
     return (
         <div className="Order">

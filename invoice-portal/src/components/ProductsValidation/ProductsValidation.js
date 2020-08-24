@@ -5,12 +5,6 @@ import Product from '../Product/Product';
 
 
 const ProductsValidation = props => {
-    // Remove duplicates
-    const moneyFormat = nb => nb.toLocaleString('en-CA', {
-        style: 'currency',
-        currency: 'CAD',
-        minimumFractionDigits: 4
-    });
     const [toggleModal, setToggleModal] = useState({ open: false, product: null });
 
     return (
@@ -22,6 +16,7 @@ const ProductsValidation = props => {
                 <tbody>
                     {props.order.products.map((product, index) => {
                         return <Line
+                            moneyFormat={nb => props.moneyFormat(nb)}
                             product={product}
                             context={2}
                             openModal={() => setToggleModal({ open: true, product: index })}

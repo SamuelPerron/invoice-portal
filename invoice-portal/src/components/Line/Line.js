@@ -8,15 +8,9 @@ const Line = props => {
     const [format, setFormat] = useState({});
     const [quantityAfterFormat, setQuantityAfterFormat] = useState(0);
 
-    const moneyFormat = nb => nb.toLocaleString('en-CA', {
-        style: 'currency',
-        currency: 'CAD',
-        minimumFractionDigits: 4
-    });
-
     const productFormat = () => {
         let formattedProduct = {...props.product};
-        formattedProduct.formattedUnitPrice = moneyFormat(formattedProduct.unitPrice);
+        formattedProduct.formattedUnitPrice = props.moneyFormat(formattedProduct.unitPrice);
         return formattedProduct;
     }
 
@@ -25,7 +19,7 @@ const Line = props => {
             let result = 0;
             result = (product.unitPrice * format.qty) * quantity;
             props.changeQuantity(result, format);
-            return moneyFormat(result);
+            return props.moneyFormat(result);
         }
     }
 
@@ -71,7 +65,7 @@ const Line = props => {
             { props.context === 1 ?
                 <>
                     <td>[{product.code}]</td>
-                    <td onClick={props.openModal}><span className="name">{product.name}</span></td>
+                    <td onClick={() => props.openProductModal(product.id)}><span className="name">{product.name}</span></td>
                     <td>({product.dimensions})</td>
                     <td>{product.formattedUnitPrice}</td>
                     <td><select
@@ -94,7 +88,7 @@ const Line = props => {
                     <td>{product.formattedUnitPrice}</td>
                     <td>{format.name} ({format.qty} units)</td>
                     <td>{quantityAfterFormat} ({product.quantity} units)</td>
-                    <td>{moneyFormat(product.subtotal)}</td>
+                    <td>{props.moneyFormat(product.subtotal)}</td>
                 </>
             : null }
         </tr>
