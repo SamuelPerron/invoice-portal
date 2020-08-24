@@ -5,12 +5,16 @@ import Line from '../Line/Line';
 const ProductsSelection = props => {
     return (
         <div className="ProductsSelection">
+            <Search
+                products={props.products}
+                results={results => setFilteredProducts(results)} />
+
             <table>
                 <thead>
                     <Line context={-1} />
                 </thead>
                 <tbody>
-                    {props.products.map((product, index) => {
+                    {filteredProducts.map((product, index) => {
                         return <Line
                             changeQuantity={qty => props.changeQuantity(product.id, qty)}
                             changeFormat={formatId => props.changeFormat(product.id, formatId)}
