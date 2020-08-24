@@ -30,7 +30,8 @@ const ProductsValidation = props => {
                 </tbody>
             </table>
             <p>Total: <strong>{props.order.total}</strong></p>
-            <button onClick={() => props.submit()}>Next step</button>
+            <button onClick={() => props.back(props.order)}>Edit order</button>
+            <button onClick={() => props.submit(props.order)}>Next step</button>
 
             { toggleModal.open ?
                 <Modal close={() => setToggleModal({ open: false, product: null })}>

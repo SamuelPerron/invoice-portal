@@ -33,8 +33,13 @@ const Line = props => {
         if (props.product) {
             setProduct(productFormat());
             if (props.context === 1) {
-                setSubtotal(calculateSubtotal());
-                setFormat(props.product.formats[0]);
+                if (props.product.quantity) {
+                    setQuantity(props.product.quantity)
+                    setFormat(props.product.formats.find(f => f.id === props.product.formatId));
+                } else {
+                    setSubtotal(calculateSubtotal());
+                    setFormat(props.product.formats[0]);
+                }
             } else if (props.context === 2) {
                 setFormat(props.product.formats.find(f => f.id === props.product.formatId));
             }
@@ -69,7 +74,9 @@ const Line = props => {
                     <td onClick={props.openModal}><span className="name">{product.name}</span></td>
                     <td>({product.dimensions})</td>
                     <td>{product.formattedUnitPrice}</td>
-                    <td><select onChange={(e) => setFormat(props.product.formats.find(f => f.id === parseInt(e.target.value)))}>
+                    <td><select
+                            onChange={(e) => setFormat(props.product.formats.find(f => f.id === parseInt(e.target.value)))}
+                            defaultValue={props.product.formatId}>
                         {props.product.formats.map((f, index) => {
                             return <option value={f.id} key={index}>{f.name} ({f.qty} units)</option>
                         })}
