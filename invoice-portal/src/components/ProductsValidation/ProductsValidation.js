@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Line from '../Line/Line';
-import Modal from '../Modal/Modal';
-import Product from '../Product/Product';
 
 
 const ProductsValidation = props => {
-    // Remove duplicates
-    const moneyFormat = nb => nb.toLocaleString('en-CA', {
-        style: 'currency',
-        currency: 'CAD',
-        minimumFractionDigits: 4
-    });
-    const [toggleModal, setToggleModal] = useState({ open: false, product: null });
-
     return (
         <div className="ProductsValidation">
             <table>
@@ -20,24 +10,19 @@ const ProductsValidation = props => {
                     <Line context={-1} />
                 </thead>
                 <tbody>
-                    {props.order.products.map((product, index) => {
+                    {props.order.map((product, index) => {
                         return <Line
+                            moneyFormat={nb => props.moneyFormat(nb)}
                             product={product}
                             context={2}
-                            openModal={() => setToggleModal({ open: true, product: index })}
+                            openProductModal={id => props.openProductModal(id)}
                             key={index} />
                     })}
                 </tbody>
             </table>
-            <p>Total: <strong>{props.order.total}</strong></p>
-            <button onClick={() => props.back(props.order)}>Edit order</button>
-            <button onClick={() => props.submit(props.order)}>Next step</button>
-
-            { toggleModal.open ?
-                <Modal close={() => setToggleModal({ open: false, product: null })}>
-                    <Product infos={props.order.products[toggleModal.product]} />
-                </Modal>
-            : null }
+            <p>Total: <strong>{props.moneyFormat(props.total)}</strong></p>
+            <button onClick={props.back}>Edit order</button>
+            <button onClick={props.submit}>Next step</button>
         </div>
     );
 }

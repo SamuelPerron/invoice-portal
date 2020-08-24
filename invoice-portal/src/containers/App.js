@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Order from './containers/Order/Order';
+import Order from './Order/Order';
+import Modal from '../components/Modal/Modal';
+import Product from '../components/Product/Product';
 
 import './App.css';
 
 const App = props => {
     const [products, setProducts] = useState([]);
+    const [toggleModal, setToggleModal] = useState({ open: false, product: null });
 
     const productFactory = nb => [...Array(nb).keys()].map(i => ( {
         id: i + 1,
@@ -33,7 +36,14 @@ const App = props => {
     return (
         <div className="App">
             <Order
+                openProductModal={id => setToggleModal({ open: true, product: id })}
                 products={products} />
+
+            { toggleModal.open ?
+                <Modal close={() => setToggleModal({ open: false, product: null })}>
+                    <Product infos={{...products.find(p => p.id === toggleModal.product)}} />
+                </Modal>
+            : null }
         </div>
     );
 }
