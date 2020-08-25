@@ -17,7 +17,7 @@ const App = props => {
         inventory: 1000,
         formats: [
             { id: 1, name: 'Boite', qty: 100  },
-            { id: 2, name: 'Caisse', qty: 10000  },
+            { id: 2, name: 'Caisse', qty: 1000  },
         ],
         unitPrice: 0.0852 * i + 0.7,
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae enim quis ligula facilisis viverra. Sed tortor sem, facilisis in nibh in, aliquet elementum felis. Sed sit amet gravida orci, eu rutrum urna. Pellentesque auctor orci at nunc accumsan cursus. Maecenas tempus mauris eget tempus eleifend. Sed mollis, leo in cursus convallis, risus metus sodales risus, ut vestibulum felis dolor non enim. Aliquam lobortis massa eget sodales sollicitudin.',
