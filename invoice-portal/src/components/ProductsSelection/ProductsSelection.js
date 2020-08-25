@@ -1,20 +1,18 @@
 import React from 'react';
 import Line from '../Line/Line';
-
+import Search from '../Search/Search';
 
 const ProductsSelection = props => {
     return (
         <div className="ProductsSelection">
-            <Search
-                products={props.products}
-                results={results => setFilteredProducts(results)} />
+            <Search products={props.products} search={props.search} searchHandler={v => props.searchHandler(v)} />
 
             <table>
                 <thead>
                     <Line context={-1} />
                 </thead>
                 <tbody>
-                    {filteredProducts.map((product, index) => {
+                    {props.products.map((product, index) => {
                         return <Line
                             changeQuantity={qty => props.changeQuantity(product.id, qty)}
                             changeFormat={formatId => props.changeFormat(product.id, formatId)}

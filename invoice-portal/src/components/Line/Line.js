@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Line.css';
 
 const Line = props => {
@@ -16,7 +16,7 @@ const Line = props => {
                 </>
             : null }
 
-            { props.context === 1 ?
+            { props.context === 1 && !props.product.hide ?
                 <>
                     <td>[{props.product.code}]</td>
                     <td onClick={() => props.openProductModal(props.product.id)}><span className="name">{props.product.name}</span></td>
@@ -29,7 +29,7 @@ const Line = props => {
                             return <option value={f.id} key={index}>{f.name} ({f.qty} units)</option>
                         })}
                     </select></td>
-                    <td><input type="number" onChange={(e) => props.changeQuantity(e.target.value != '' ? parseInt(e.target.value) : 0)} value={props.product.quantity} /></td>
+                    <td><input type="number" onChange={(e) => props.changeQuantity(e.target.value !== '' ? parseInt(e.target.value) : 0)} value={props.product.quantity} /></td>
                     <td>{props.moneyFormat(props.product.subtotal)}</td>
                 </>
             : null }
