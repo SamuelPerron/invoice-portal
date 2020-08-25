@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ProductsSelection from '../../components/ProductsSelection/ProductsSelection';
 import ProductsValidation from '../../components/ProductsValidation/ProductsValidation';
+import OrderDelivery from '../../components/OrderDelivery/OrderDelivery';
 import BackOrderOptions from '../../components/BackOrderOptions/BackOrderOptions';
 import Modal from '../../components/Modal/Modal';
 
@@ -72,6 +73,11 @@ const Order = props => {
     }
 
     const validateOrderHandler = () => {
+        setTitle('Validate order');
+        setStep(3);
+    }
+
+    const finalizeOrderHandler = () => {
         console.log(order);
     }
 
@@ -153,11 +159,18 @@ const Order = props => {
                             back={goBackHandler}
                             moneyFormat={nb => moneyFormat(nb)} />;
 
+    const stepThreeJsx = <OrderDelivery
+                                order={order}
+                                total={total}
+                                moneyFormat={nb => moneyFormat(nb)}
+                                submit={finalizeOrderHandler} />;
+
     return (
         <div className="Order">
             <h1>{title}</h1>
             { step === 1 ? stepOneJsx : null }
             { step === 2 ? stepTwoJsx : null }
+            { step === 3 ? stepThreeJsx : null }
 
             { backOrderProducts.length > 0 ?
                 <Modal>
