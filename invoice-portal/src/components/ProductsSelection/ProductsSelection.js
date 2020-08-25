@@ -25,7 +25,7 @@ const ProductsSelection = props => {
                 </tbody>
             </table>
             <p>Total: <strong>{props.moneyFormat(props.total)}</strong></p>
-            <button onClick={props.submit}>Next step</button>
+            <button onClick={props.submit} disabled={props.total <= 0}>Next step</button>
         </div>
     );
 }
