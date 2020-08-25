@@ -6,7 +6,9 @@ const Modal = props => {
         <div className="Modal">
             <div className="darken" onClick={props.close}></div>
             <div className="content">
-                <span className="close" onClick={props.close}>Close</span>
+                { props.close ?
+                    <span className="close" onClick={props.close}>Close</span>
+                : null }
                 {props.children}
             </div>
         </div>
