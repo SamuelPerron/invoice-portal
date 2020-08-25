@@ -1,10 +1,12 @@
 import React from 'react';
 import Line from '../Line/Line';
-
+import Search from '../Search/Search';
 
 const ProductsSelection = props => {
     return (
         <div className="ProductsSelection">
+            <Search products={props.products} search={props.search} searchHandler={v => props.searchHandler(v)} />
+
             <table>
                 <thead>
                     <Line context={-1} />

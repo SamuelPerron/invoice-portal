@@ -8,6 +8,7 @@ const Order = props => {
     const [order, setOrder] = useState({});
     const [title, setTitle] = useState('Place an order');
     const [total, setTotal] = useState(0);
+    const [search, setSearch] = useState({'productName': '', 'productCode': ''});
 
     useEffect(() => { // Set default for products
         const newProducts = [...props.products];
@@ -15,6 +16,7 @@ const Order = props => {
             product.format = product.formats[0];
             product.quantity = 0;
             product.subtotal = 0;
+            product.hide = false;
             return product;
         });
         setProducts(newProducts);
@@ -27,6 +29,19 @@ const Order = props => {
         }
         setTotal(newTotal)
     }, [products]);
+
+    useEffect(() => {
+        let filteredProducts = [...products];
+        filteredProducts.map(p => {
+            if (!(p.code.includes(search.productCode) && p.name.includes(search.productName))) {
+                p.hide = true;
+            } else {
+                p.hide = false;
+            }
+            return p;
+        });
+        setProducts(filteredProducts);
+    }, [search]);
 
     const recalculateProducts = oldProducts => {
         let newProducts = [...oldProducts];
@@ -48,6 +63,7 @@ const Order = props => {
     }
 
     const goBackHandler = () => {
+        setSearch({'productName': '', 'productCode': ''});
         setTitle('Modify order');
         setStep(1);
     }
@@ -78,12 +94,18 @@ const Order = props => {
         setOrder([...props.products].filter(p => p.quantity > 0));
     }
 
+    const searchHandler = value => {
+        setSearch({...search, ...value});
+    }
+
     const stepOneJsx = <ProductsSelection
                             changeQuantity={(productId, qty) => changeQuantity(productId, qty)}
                             changeFormat={(productId, formatId) => changeFormat(productId, formatId)}
                             openProductModal={id => props.openProductModal(id)}
                             products={products}
                             total={total}
+                            search={search}
+                            searchHandler={v => searchHandler(v)}
                             submit={submitOrderHandler}
                             moneyFormat={nb => moneyFormat(nb)} />;
 
