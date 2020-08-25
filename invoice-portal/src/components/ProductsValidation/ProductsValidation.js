@@ -15,7 +15,7 @@ const ProductsValidation = props => {
                             moneyFormat={nb => props.moneyFormat(nb)}
                             product={product}
                             context={2}
-                            openProductModal={id => props.openProductModal(id)}
+                            openProductModal={() => props.openProductModal(product.id)}
                             key={index} />
                     })}
                 </tbody>

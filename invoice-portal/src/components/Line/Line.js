@@ -19,7 +19,7 @@ const Line = props => {
             { props.context === 1 && !props.product.hide ?
                 <>
                     <td>[{props.product.code}]</td>
-                    <td onClick={() => props.openProductModal(props.product.id)}><span className="name">{props.product.name}</span></td>
+                    <td onClick={props.openProductModal}><span className="name">{props.product.name}</span></td>
                     <td>({props.product.dimensions})</td>
                     <td>{props.moneyFormat(props.product.unitPrice)}</td>
                     <td><select
@@ -37,7 +37,7 @@ const Line = props => {
             { props.context === 2 ?
                 <>
                     <td>[{props.product.code}]</td>
-                    <td onClick={props.openModal}><span className="name">{props.product.name}</span></td>
+                    <td onClick={props.openProductModal}><span className="name">{props.product.name}</span></td>
                     <td>({props.product.dimensions})</td>
                     <td>{props.moneyFormat(props.product.unitPrice)}</td>
                     <td>{props.product.format.name} ({props.product.format.qty} units)</td>

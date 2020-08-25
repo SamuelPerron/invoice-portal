@@ -16,7 +16,7 @@ const ProductsSelection = props => {
                         return <Line
                             changeQuantity={qty => props.changeQuantity(product.id, qty)}
                             changeFormat={formatId => props.changeFormat(product.id, formatId)}
-                            openProductModal={id => props.openProductModal(id)}
+                            openProductModal={() => props.openProductModal(product.id)}
                             moneyFormat={props.moneyFormat}
                             product={product}
                             context={1}
@@ -25,7 +25,7 @@ const ProductsSelection = props => {
                 </tbody>
             </table>
             <p>Total: <strong>{props.moneyFormat(props.total)}</strong></p>
-            <button onClick={props.submit}>Next step</button>
+            <button onClick={props.submit} disabled={props.total <= 0}>Next step</button>
         </div>
     );
 }

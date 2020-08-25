@@ -111,10 +111,10 @@ const Order = props => {
 
     const stepTwoJsx = <ProductsValidation
                             order={order}
+                            openProductModal={id => props.openProductModal(id)}
                             total={total}
                             submit={validateOrderHandler}
                             back={goBackHandler}
-                            openProductModal={id => props.openProductModal(id)}
                             moneyFormat={nb => moneyFormat(nb)} />;
 
     return (
