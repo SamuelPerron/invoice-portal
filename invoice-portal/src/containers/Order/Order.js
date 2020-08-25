@@ -14,6 +14,7 @@ const Order = props => {
     const [backOrderOptions, setBackOrderOptions] = useState([
         {id: 1, name: 'Don\'t order this product', description: 'Remove {CODE} from your order'},
         {id: 2, name: 'Only order the available inventory', description: 'Only order {AVAILQTY} {FORMAT} ( {AVAILUNITS} )'},
+        {id: 3, name: 'Order the available inventory and put the rest in back order', description: 'Only order {AVAILQTY} {FORMAT} ( {AVAILUNITS} ) and put {BOUNITS} in back order'},
     ]);
     const [search, setSearch] = useState({'productName': '', 'productCode': ''});
 
@@ -23,6 +24,7 @@ const Order = props => {
             product.format = product.formats[0];
             product.quantity = 0;
             product.subtotal = 0;
+            product.boQuantity = 0;
             product.hide = false;
             return product;
         });
@@ -74,6 +76,7 @@ const Order = props => {
     }
 
     const goBackHandler = () => {
+        setOrder([]);
         setSearch({'productName': '', 'productCode': ''});
         setTitle('Modify order');
         setStep(1);
@@ -115,15 +118,16 @@ const Order = props => {
 
                 if (optionId === 1) {
                     p.quantity = 0;
-                    return p;
                 } else if (optionId === 2) {
-                    p.quantity =  Math.floor(p.inventory / p.format.qty);
-                    return p;
+                    p.quantity = Math.floor(p.inventory / p.format.qty);
+                } else if (optionId === 3) {
+                    const ogQty = p.quantity;
+                    p.quantity = Math.floor(p.inventory / p.format.qty);
+                    p.boQuantity = ogQty - p.quantity;
                 }
 
-            } else {
-                return p;
             }
+            return p;
         });
         newOrder = newOrder.filter(p => p.quantity > 0);
         const recalculatedOrder = recalculateProducts(newOrder);

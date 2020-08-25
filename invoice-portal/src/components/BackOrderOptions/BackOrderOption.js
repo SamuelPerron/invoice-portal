@@ -9,8 +9,9 @@ const BackOrderOption = props => {
                     props.option.description
                     .replace(/{CODE}/, props.product.code)
                     .replace(/{AVAILQTY}/, Math.floor(props.product.inventory / props.product.format.qty))
-                    .replace(/{FORMAT}/, props.product.format.name + '(s)')
                     .replace(/{AVAILUNITS}/, props.product.inventory + ' unit(s)')
+                    .replace(/{BOUNITS}/, props.product.quantity * props.product.format.qty - props.product.inventory + ' unit(s)')
+                    .replace(/{FORMAT}/, props.product.format.name + '(s)')
                 }</p>
         </li>
     );

@@ -41,7 +41,12 @@ const Line = props => {
                     <td>({props.product.dimensions})</td>
                     <td>{props.moneyFormat(props.product.unitPrice)}</td>
                     <td>{props.product.format.name} ({props.product.format.qty} units)</td>
-                    <td>{props.product.quantity} ({props.product.quantity * props.product.format.qty} units)</td>
+                    <td>
+                        {props.product.quantity} ({props.product.quantity * props.product.format.qty} units)
+                        { props.product.boQuantity > 0 ?
+                            <span> (+ {props.product.boQuantity} {props.product.format.name}(s) / bo)</span>
+                        : null }
+                    </td>
                     <td>{props.moneyFormat(props.product.subtotal)}</td>
                 </>
             : null }
