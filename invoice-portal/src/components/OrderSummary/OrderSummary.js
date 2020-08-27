@@ -6,7 +6,7 @@ const OrderSummary = props => {
         <div>
             <ul>
                 { props.order.products.map(p => {
-                    return <OrderSummaryLine product={p} moneyFormat={nb => props.moneyFormat(nb)} />
+                    return <OrderSummaryLine product={p} moneyFormat={nb => props.moneyFormat(nb)} key={p.id} />
                 }) }
             </ul>
             <strong>Total: {props.moneyFormat(props.total)}</strong>

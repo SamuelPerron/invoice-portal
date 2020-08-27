@@ -76,7 +76,7 @@ const Order = props => {
     }
 
     const validateOrderHandler = () => {
-        setTitle('Validate order');
+        setTitle('Delivery / Pick-up');
         setStep(3);
     }
 
@@ -85,7 +85,7 @@ const Order = props => {
     }
 
     const goBackHandler = () => {
-        setOrder([]);
+        setOrder({});
         setSearch({'productName': '', 'productCode': ''});
         setTitle('Modify order');
         setStep(1);
@@ -124,7 +124,8 @@ const Order = props => {
     }
 
     const selectOption = (optionId, productId) => {
-        let newOrder = {...order}.products.map(p => {
+        const newOrder = {...order}
+        newOrder.products.map(p => {
             if (p.id === productId) {
 
                 if (optionId === 1) {
@@ -140,7 +141,7 @@ const Order = props => {
             }
             return p;
         });
-        newOrder.products = recalculateProducts(newOrder.filter(p => p.quantity > 0));
+        newOrder.products = recalculateProducts(newOrder.products.filter(p => p.quantity > 0));
         setOrder(newOrder);
     }
 
@@ -148,6 +149,23 @@ const Order = props => {
         const oldOrder = {
             ...order,
             comment
+        }
+        setOrder(oldOrder)
+    }
+
+    const updateDeliveryMethodHandler = choice => {
+        const oldOrder = {
+            ...order,
+            deliveryChoice: choice,
+            deliveryAddressId: null
+        }
+        setOrder(oldOrder)
+    }
+
+    const updateDeliveryAddressHandler = address => {
+        const oldOrder = {
+            ...order,
+            deliveryAddressId: address
         }
         setOrder(oldOrder)
     }
@@ -176,6 +194,9 @@ const Order = props => {
                                 total={total}
                                 moneyFormat={nb => moneyFormat(nb)}
                                 saveComment={comment => updateCommentHandler(comment)}
+                                saveDeliveryChoice={choice => updateDeliveryMethodHandler(choice)}
+                                saveDeliveryAddress={address => updateDeliveryAddressHandler(address)}
+                                user={props.user}
                                 submit={finalizeOrderHandler} />;
 
     return (
