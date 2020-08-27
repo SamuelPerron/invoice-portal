@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/invoice-portal/static/css/main.d0b839a7.chunk.css",
+    "main.js": "/invoice-portal/static/js/main.b6a4d018.chunk.js",
+    "main.js.map": "/invoice-portal/static/js/main.b6a4d018.chunk.js.map",
+    "runtime-main.js": "/invoice-portal/static/js/runtime-main.0baa4870.js",
+    "runtime-main.js.map": "/invoice-portal/static/js/runtime-main.0baa4870.js.map",
+    "static/js/2.1bbe601a.chunk.js": "/invoice-portal/static/js/2.1bbe601a.chunk.js",
+    "static/js/2.1bbe601a.chunk.js.map": "/invoice-portal/static/js/2.1bbe601a.chunk.js.map",
+    "index.html": "/invoice-portal/index.html",
+    "precache-manifest.475c6e7f6930ce946cb859466a160d4f.js": "/invoice-portal/precache-manifest.475c6e7f6930ce946cb859466a160d4f.js",
+    "service-worker.js": "/invoice-portal/service-worker.js",
+    "static/css/main.d0b839a7.chunk.css.map": "/invoice-portal/static/css/main.d0b839a7.chunk.css.map",
+    "static/js/2.1bbe601a.chunk.js.LICENSE.txt": "/invoice-portal/static/js/2.1bbe601a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0baa4870.js",
+    "static/js/2.1bbe601a.chunk.js",
+    "static/css/main.d0b839a7.chunk.css",
+    "static/js/main.b6a4d018.chunk.js"
+  ]
+}
