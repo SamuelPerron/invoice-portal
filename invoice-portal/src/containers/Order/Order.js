@@ -8,7 +8,7 @@ import Modal from '../../components/Modal/Modal';
 const Order = props => {
     const [step, setStep] = useState(1);
     const [products, setProducts] = useState([]);
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState({});
     const [backOrderProducts, setBackOrderProducts] = useState([]);
     const [title, setTitle] = useState('Place an order');
     const [total, setTotal] = useState(0);
@@ -54,7 +54,10 @@ const Order = props => {
     }, [search]);
 
     useEffect(() => { // Look for back orders in order
-        setBackOrderProducts([...order].filter(p => (p.quantity * p.format.qty) > p.inventory));
+        const oldOrder = {...order};
+        if (oldOrder.products) {
+            setBackOrderProducts(oldOrder.products.filter(p => (p.quantity * p.format.qty) > p.inventory));
+        }
     }, [order]);
 
     const recalculateProducts = oldProducts => {
@@ -111,7 +114,9 @@ const Order = props => {
     }
 
     const constructOrder = () => {
-        setOrder([...props.products].filter(p => p.quantity > 0));
+        setOrder({
+            products: [...props.products].filter(p => p.quantity > 0)
+        });
     }
 
     const searchHandler = value => {
@@ -119,7 +124,7 @@ const Order = props => {
     }
 
     const selectOption = (optionId, productId) => {
-        let newOrder = [...order].map(p => {
+        let newOrder = {...order}.products.map(p => {
             if (p.id === productId) {
 
                 if (optionId === 1) {
@@ -135,9 +140,16 @@ const Order = props => {
             }
             return p;
         });
-        newOrder = newOrder.filter(p => p.quantity > 0);
-        const recalculatedOrder = recalculateProducts(newOrder);
-        setOrder(recalculatedOrder);
+        newOrder.products = recalculateProducts(newOrder.filter(p => p.quantity > 0));
+        setOrder(newOrder);
+    }
+
+    const updateCommentHandler = comment => {
+        const oldOrder = {
+            ...order,
+            comment
+        }
+        setOrder(oldOrder)
     }
 
     const stepOneJsx = <ProductsSelection
@@ -163,6 +175,7 @@ const Order = props => {
                                 order={order}
                                 total={total}
                                 moneyFormat={nb => moneyFormat(nb)}
+                                saveComment={comment => updateCommentHandler(comment)}
                                 submit={finalizeOrderHandler} />;
 
     return (

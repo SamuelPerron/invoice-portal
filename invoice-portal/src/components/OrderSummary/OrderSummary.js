@@ -1,11 +1,11 @@
 import React from 'react';
-import OrderSummaryLine from './OrderSummaryLine';
+import OrderSummaryLine from './OrderSummaryLine/OrderSummaryLine';
 
 const OrderSummary = props => {
     return (
         <div>
             <ul>
-                { props.order.map(p => {
+                { props.order.products.map(p => {
                     return <OrderSummaryLine product={p} moneyFormat={nb => props.moneyFormat(nb)} />
                 }) }
             </ul>
