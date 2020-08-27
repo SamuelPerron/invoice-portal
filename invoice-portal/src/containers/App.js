@@ -8,6 +8,7 @@ import './App.css';
 const App = props => {
     const [products, setProducts] = useState([]);
     const [toggleModal, setToggleModal] = useState({ open: false, product: null });
+    const [user, setUser] = useState({});
 
     const productFactory = nb => [...Array(nb).keys()].map(i => ( {
         id: i + 1,
@@ -28,16 +29,47 @@ const App = props => {
         setProducts(distantProducts);
     }
 
+    const fetchUserInfos = () => {
+        const distantUser = {
+            'name': 'Chez Sam',
+            'addresses': [
+                {
+                    id: 1,
+                    name: 'Main office',
+                    street: '8754 rue du Chevalet',
+                    number: '',
+                    city: 'Québec',
+                    state: 'QC',
+                    country: 'Canada',
+                    zip: 'G2C 0L4',
+                },
+                {
+                    id: 2,
+                    name: 'Main office',
+                    street: '8754 rue du Chevalet',
+                    number: '',
+                    city: 'Québec',
+                    state: 'QC',
+                    country: 'Canada',
+                    zip: 'G2C 0L4',
+                },
+            ]
+        }
+        // then
+        fetchProducts();
+        setUser(distantUser);
+    }
+
     // "mounted"
     useEffect(() => {
-        fetchProducts();
+        fetchUserInfos();
     }, []);
 
     return (
         <div className="App">
             <Order
                 openProductModal={id => setToggleModal({ open: true, product: id })}
-                products={products} />
+                products={products} user={user} />
 
             { toggleModal.open ?
                 <Modal close={() => setToggleModal({ open: false, product: null })}>

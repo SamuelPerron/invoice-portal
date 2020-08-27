@@ -10,7 +10,7 @@ const ProductsValidation = props => {
                     <Line context={-1} />
                 </thead>
                 <tbody>
-                    {props.order.map((product, index) => {
+                    {props.order.products.map((product, index) => {
                         return <Line
                             moneyFormat={nb => props.moneyFormat(nb)}
                             product={product}

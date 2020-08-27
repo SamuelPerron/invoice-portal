@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProductsSelection from '../../components/ProductsSelection/ProductsSelection';
 import ProductsValidation from '../../components/ProductsValidation/ProductsValidation';
+import OrderDelivery from '../../components/OrderDelivery/OrderDelivery';
 import BackOrderOptions from '../../components/BackOrderOptions/BackOrderOptions';
 import Modal from '../../components/Modal/Modal';
 
 const Order = props => {
     const [step, setStep] = useState(1);
     const [products, setProducts] = useState([]);
-    const [order, setOrder] = useState([]);
+    const [order, setOrder] = useState({});
     const [backOrderProducts, setBackOrderProducts] = useState([]);
     const [title, setTitle] = useState('Place an order');
     const [total, setTotal] = useState(0);
@@ -53,7 +54,10 @@ const Order = props => {
     }, [search]);
 
     useEffect(() => { // Look for back orders in order
-        setBackOrderProducts([...order].filter(p => (p.quantity * p.format.qty) > p.inventory));
+        const oldOrder = {...order};
+        if (oldOrder.products) {
+            setBackOrderProducts(oldOrder.products.filter(p => (p.quantity * p.format.qty) > p.inventory));
+        }
     }, [order]);
 
     const recalculateProducts = oldProducts => {
@@ -72,11 +76,16 @@ const Order = props => {
     }
 
     const validateOrderHandler = () => {
+        setTitle('Delivery / Pick-up');
+        setStep(3);
+    }
+
+    const finalizeOrderHandler = () => {
         console.log(order);
     }
 
     const goBackHandler = () => {
-        setOrder([]);
+        setOrder({});
         setSearch({'productName': '', 'productCode': ''});
         setTitle('Modify order');
         setStep(1);
@@ -105,7 +114,9 @@ const Order = props => {
     }
 
     const constructOrder = () => {
-        setOrder([...props.products].filter(p => p.quantity > 0));
+        setOrder({
+            products: [...props.products].filter(p => p.quantity > 0)
+        });
     }
 
     const searchHandler = value => {
@@ -113,7 +124,8 @@ const Order = props => {
     }
 
     const selectOption = (optionId, productId) => {
-        let newOrder = [...order].map(p => {
+        const newOrder = {...order}
+        newOrder.products.map(p => {
             if (p.id === productId) {
 
                 if (optionId === 1) {
@@ -129,9 +141,33 @@ const Order = props => {
             }
             return p;
         });
-        newOrder = newOrder.filter(p => p.quantity > 0);
-        const recalculatedOrder = recalculateProducts(newOrder);
-        setOrder(recalculatedOrder);
+        newOrder.products = recalculateProducts(newOrder.products.filter(p => p.quantity > 0));
+        setOrder(newOrder);
+    }
+
+    const updateCommentHandler = comment => {
+        const oldOrder = {
+            ...order,
+            comment
+        }
+        setOrder(oldOrder)
+    }
+
+    const updateDeliveryMethodHandler = choice => {
+        const oldOrder = {
+            ...order,
+            deliveryChoice: choice,
+            deliveryAddressId: null
+        }
+        setOrder(oldOrder)
+    }
+
+    const updateDeliveryAddressHandler = address => {
+        const oldOrder = {
+            ...order,
+            deliveryAddressId: address
+        }
+        setOrder(oldOrder)
     }
 
     const stepOneJsx = <ProductsSelection
@@ -153,11 +189,22 @@ const Order = props => {
                             back={goBackHandler}
                             moneyFormat={nb => moneyFormat(nb)} />;
 
+    const stepThreeJsx = <OrderDelivery
+                                order={order}
+                                total={total}
+                                moneyFormat={nb => moneyFormat(nb)}
+                                saveComment={comment => updateCommentHandler(comment)}
+                                saveDeliveryChoice={choice => updateDeliveryMethodHandler(choice)}
+                                saveDeliveryAddress={address => updateDeliveryAddressHandler(address)}
+                                user={props.user}
+                                submit={finalizeOrderHandler} />;
+
     return (
         <div className="Order">
             <h1>{title}</h1>
             { step === 1 ? stepOneJsx : null }
             { step === 2 ? stepTwoJsx : null }
+            { step === 3 ? stepThreeJsx : null }
 
             { backOrderProducts.length > 0 ?
                 <Modal>

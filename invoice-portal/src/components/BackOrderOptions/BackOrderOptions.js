@@ -1,5 +1,5 @@
 import React from 'react';
-import BackOrderOption from './BackOrderOption';
+import BackOrderOption from './BackOrderOption/BackOrderOption';
 
 const BackOrderOptions = props => {
     return (
