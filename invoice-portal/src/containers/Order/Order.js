@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductsSelection from '../../components/ProductsSelection/ProductsSelection';
 import ProductsValidation from '../../components/ProductsValidation/ProductsValidation';
 import OrderDelivery from '../../components/OrderDelivery/OrderDelivery';
+import OrderDone from '../../components/OrderDone/OrderDone';
 import BackOrderOptions from '../../components/BackOrderOptions/BackOrderOptions';
 import Modal from '../../components/Modal/Modal';
 
@@ -81,7 +82,8 @@ const Order = props => {
     }
 
     const finalizeOrderHandler = () => {
-        console.log(order);
+        setTitle('Order sent !');
+        setStep(4);
     }
 
     const goBackHandler = () => {
@@ -199,12 +201,17 @@ const Order = props => {
                                 user={props.user}
                                 submit={finalizeOrderHandler} />;
 
+    const stepFourJsx = <OrderDone
+                            title={title}
+                            order={order} />;
+
     return (
         <div className="Order">
             <h1>{title}</h1>
             { step === 1 ? stepOneJsx : null }
             { step === 2 ? stepTwoJsx : null }
             { step === 3 ? stepThreeJsx : null }
+            { step === 4 ? stepFourJsx : null }
 
             { backOrderProducts.length > 0 ?
                 <Modal>
