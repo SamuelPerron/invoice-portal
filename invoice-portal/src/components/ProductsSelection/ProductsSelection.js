@@ -7,10 +7,11 @@ const ProductsSelection = props => {
     const fillerTr = [...Array(5 - props.products.length).keys()].map(i => {
         return (
             <tr key={i}>
-                {[...Array(7).keys()].map(k => <td key={k} /> )}
+                <td colSpan="7"/>
             </tr>
         )
     });
+    const emptyProducts = <tr><td colSpan="7">No products matching these filters</td></tr>;
 
     return (
         <div className="ProductsSelection">
@@ -33,6 +34,9 @@ const ProductsSelection = props => {
                                 key={index} />
                         })}
                         {fillerTr}
+                        { [...props.products].filter(p => !p.hide).length === 0 ?
+                            emptyProducts
+                        : null }
                     </tbody>
                     <caption>
                         <div className="psa">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis lobortis malesuada. Sed maximus imperdiet tempus. Quisque a gravida ligula.</div>

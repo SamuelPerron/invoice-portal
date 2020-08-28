@@ -6,7 +6,7 @@ const ProductsValidation = props => {
     const fillerTr = [...Array(5 - props.order.products.length).keys()].map(i => {
         return (
             <tr key={i}>
-                {[...Array(7).keys()].map(k => <td key={k} /> )}
+                <td colSpan="7"/>
             </tr>
         )
     });
