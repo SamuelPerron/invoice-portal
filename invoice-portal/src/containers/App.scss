@@ -1,43 +1,87 @@
+@import '../styles/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+
 .App {
-  text-align: center;
+    padding: 0;
+    margin: 0;
+    background-image: $gradient;
+    min-height: 110vh;
+    color: $text;
+    font-family: $font-family;
 
-  table {
-      width: 90%;
-      margin: auto;
-  }
-}
+    header {
+        margin-top: 0;
+        min-height: 10vh;
+        max-width: 100vw;
+        background-color: $header-background;
+        display: flex;
+        padding: 0 $side-padding;
+    }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+    #app-content {
+        padding: 0 $side-padding;
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+    button {
+        border: 2px solid #CC484C;
+        padding: 1vh 1vw;
+        border-radius: 5px;
+        background-color: #fff;
+        color: #CC484C;
+        font-weight: bold;
+        font-size: 1.05rem;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+        &:disabled {
+            background-color: #FFEEEF;
+            cursor: auto;
 
-.App-link {
-  color: #61dafb;
-}
+            &:hover {
+                box-shadow: none;
+                cursor: auto;
+            }
+        }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+        &:hover {
+            box-shadow: 0 0 5px #CC484C;
+            cursor: pointer;
+        }
+    }
+
+    input,
+    select {
+        padding: 1vh .5vw;
+        font-family: $font-family;
+        border: 1px solid #CC484C;
+        border-radius: 5px;
+        background-color: #fff;
+
+        &:disabled {
+            background-color: #FFEEEF;
+            cursor: auto;
+        }
+
+        &:focus {
+            box-shadow: 0 0 5px #CC484C;
+        }
+    }
+
+    .select {
+        select {
+            appearance: none;
+            cursor: pointer;
+            border-radius: 5px 0 0 5px;
+        }
+
+        &:after {
+            content: '\25bc';
+            font: 17px "Consolas", monospace;
+            padding: 1vh 5px;
+            color: #fff;
+            pointer-events: none;
+            background-color: #CC484C;
+            display: inline-block;
+            border-radius: 0 5px 5px 0;
+            border: 1px solid #CC484C;
+        }
+    }
 }

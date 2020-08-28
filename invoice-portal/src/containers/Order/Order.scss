@@ -1,0 +1,98 @@
+@import '../../styles/colors.scss';
+
+.Order {
+    .title-container {
+
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-top: 0;
+            padding-top: 3vh;
+            border-bottom: solid 5px #FF5A5F;
+        }
+    }
+
+    .table-wrapper {
+        border-radius: $border-radius;
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        background-color: $table-background;
+        border-collapse: collapse;
+        caption-side: bottom;
+        color: #331213;
+
+        input {
+            &[type=number] {
+                width: 2.5vw;
+                -moz-appearance: textfield;
+                text-align: center;
+
+                &::-webkit-outer-spin-button,
+                &::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+            }
+        }
+
+        button {
+            margin-left: 1vw;
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 2vh 2vw;
+
+            &:last-child {
+                max-width: 7vw;
+                width: 7vw;
+            }
+        }
+
+        thead {
+            background-color: #FF5A5F;
+            color: #fff;
+            border-radius: $border-radius;
+            box-shadow: 0 5px 5px -5px #FF5A5F;
+            font-size: 1.15rem;
+        }
+
+        tbody {
+            tr {
+                &:nth-child(even) {
+                    background-color: #FFEEEF;
+                }
+            }
+
+            td {
+                height: 2rem;
+            }
+        }
+
+        caption {
+            background-color: #FF5A5F;
+            box-shadow: 0 -5px 5px -5px #FF5A5F;
+            padding: 0 2vw 2vh;
+            color: #fff;
+            font-size: 1.3rem;
+            text-align: right;
+            border-radius: 0 0 $border-radius $border-radius;
+
+            .psa {
+                text-align: left;
+                width: 25%;
+                font-size: 1rem;
+                position: absolute;
+                padding-top: 2vh;
+            }
+
+            p {
+                margin: 2vh 0;
+            }
+        }
+    }
+}

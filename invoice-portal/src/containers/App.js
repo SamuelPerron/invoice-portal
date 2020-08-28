@@ -67,9 +67,11 @@ const App = props => {
 
     return (
         <div className="App">
-            <Order
-                openProductModal={id => setToggleModal({ open: true, product: id })}
-                products={products} user={user} />
+            <div id="app-content">
+                <Order
+                    openProductModal={id => setToggleModal({ open: true, product: id })}
+                    products={products} user={user} />
+            </div>
 
             { toggleModal.open ?
                 <Modal close={() => setToggleModal({ open: false, product: null })}>

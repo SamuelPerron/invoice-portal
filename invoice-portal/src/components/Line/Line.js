@@ -22,13 +22,13 @@ const Line = props => {
                     <td onClick={props.openProductModal}><span className="name">{props.product.name}</span></td>
                     <td>({props.product.dimensions})</td>
                     <td>{props.moneyFormat(props.product.unitPrice)}</td>
-                    <td><select
+                    <td><div className="select"><select
                             onChange={(e) => props.changeFormat(parseInt(e.target.value))}
                             defaultValue={props.product.format.id}>
                         {props.product.formats.map((f, index) => {
                             return <option value={f.id} key={index}>{f.name} ({f.qty} units)</option>
                         })}
-                    </select></td>
+                    </select></div></td>
                     <td><input type="number" onChange={(e) => props.changeQuantity(e.target.value !== '' ? parseInt(e.target.value) : 0)} value={props.product.quantity} /></td>
                     <td>{props.moneyFormat(props.product.subtotal)}</td>
                 </>

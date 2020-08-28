@@ -5,6 +5,7 @@ import OrderDelivery from '../../components/OrderDelivery/OrderDelivery';
 import OrderDone from '../../components/OrderDone/OrderDone';
 import BackOrderOptions from '../../components/BackOrderOptions/BackOrderOptions';
 import Modal from '../../components/Modal/Modal';
+import './Order.scss';
 
 const Order = props => {
     const [step, setStep] = useState(1);
@@ -207,7 +208,7 @@ const Order = props => {
 
     return (
         <div className="Order">
-            <h1>{title}</h1>
+            <div className="title-container"><h1>{title}</h1></div>
             { step === 1 ? stepOneJsx : null }
             { step === 2 ? stepTwoJsx : null }
             { step === 3 ? stepThreeJsx : null }
