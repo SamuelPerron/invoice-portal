@@ -4,7 +4,7 @@
     .title-container {
 
         h1 {
-            color: #fff;
+            color: $contrast-bg;
             font-size: 2.5rem;
             margin-top: 0;
             padding-top: 3vh;
@@ -23,6 +23,7 @@
         border-collapse: collapse;
         caption-side: bottom;
         color: #331213;
+        border: 1px solid $bright;
 
         input {
             &[type=number] {
@@ -54,17 +55,17 @@
         }
 
         thead {
-            background-color: #FF5A5F;
+            background-color: $bright;
             color: #fff;
             border-radius: $border-radius;
-            box-shadow: 0 5px 5px -5px #FF5A5F;
+            box-shadow: 0 5px 5px -5px $bright;
             font-size: 1.15rem;
         }
 
         tbody {
             tr {
                 &:nth-child(even) {
-                    background-color: #FFEEEF;
+                    background-color: $pale;
                 }
             }
 
@@ -74,8 +75,8 @@
         }
 
         caption {
-            background-color: #FF5A5F;
-            box-shadow: 0 -5px 5px -5px #FF5A5F;
+            background-color: $bright;
+            box-shadow: 0 -5px 5px -5px $bright;
             padding: 0 2vw 2vh;
             color: #fff;
             font-size: 1.3rem;
@@ -98,7 +99,7 @@
 
     .Search {
         width: 100%;
-        background-color: #FFEEEF;
+        background-color: $pale;
         border-radius: $border-radius;
         border: $border;
         margin-bottom: 2vh;
@@ -132,7 +133,7 @@
         }
 
         span {
-            color: #FF5A5F;
+            color: $bright;
             font-size: 1.2rem;
         }
 
@@ -156,7 +157,7 @@
                 }
 
                 &:hover {
-                    box-shadow: 0 0 5px #CC484C;
+                    box-shadow: 0 0 5px $alt;
                     cursor: pointer;
                 }
             }

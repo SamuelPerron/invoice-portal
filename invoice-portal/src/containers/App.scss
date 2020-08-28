@@ -23,16 +23,16 @@
     }
 
     button {
-        border: 2px solid #CC484C;
+        border: 2px solid $alt;
         padding: 1vh 1vw;
         border-radius: 5px;
         background-color: #fff;
-        color: #CC484C;
+        color: $alt;
         font-weight: bold;
         font-size: 1.05rem;
 
         &:disabled {
-            background-color: #FFEEEF;
+            background-color: $pale;
             cursor: auto;
 
             &:hover {
@@ -42,7 +42,7 @@
         }
 
         &:hover {
-            box-shadow: 0 0 5px #CC484C;
+            box-shadow: 0 0 5px $alt;
             cursor: pointer;
         }
     }
@@ -51,17 +51,17 @@
     select {
         padding: 1vh .5vw;
         font-family: $font-family;
-        border: 1px solid #CC484C;
+        border: 1px solid $alt;
         border-radius: 5px;
         background-color: #fff;
 
         &:disabled {
-            background-color: #FFEEEF;
+            background-color: $pale;
             cursor: auto;
         }
 
         &:focus {
-            box-shadow: 0 0 5px #CC484C;
+            box-shadow: 0 0 5px $alt;
         }
     }
 
@@ -78,10 +78,10 @@
             padding: 1vh 5px;
             color: #fff;
             pointer-events: none;
-            background-color: #CC484C;
+            background-color: $alt;
             display: inline-block;
             border-radius: 0 5px 5px 0;
-            border: 1px solid #CC484C;
+            border: 1px solid $alt;
         }
     }
 }
