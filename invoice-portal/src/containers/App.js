@@ -3,7 +3,7 @@ import Order from './Order/Order';
 import Modal from '../components/Modal/Modal';
 import Product from '../components/Product/Product';
 
-import './App.css';
+import './App.scss';
 
 const App = props => {
     const [products, setProducts] = useState([]);
