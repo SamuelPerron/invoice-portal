@@ -8,7 +8,7 @@
             font-size: 2.5rem;
             margin-top: 0;
             padding-top: 3vh;
-            border-bottom: solid 5px #FF5A5F;
+            border-bottom: $border;
         }
     }
 
@@ -100,7 +100,7 @@
         width: 100%;
         background-color: #FFEEEF;
         border-radius: $border-radius;
-        border: 5px solid #FF5A5F;
+        border: $border;
         margin-bottom: 2vh;
         padding: 2vh 2vw;
         box-sizing: border-box;
@@ -121,6 +121,43 @@
                 span {
                     margin-right: .5vw;
                     font-size: 1.1rem;
+                }
+            }
+        }
+    }
+
+    .BackOrderModal {
+        h1 {
+            border-bottom: $border;
+        }
+
+        span {
+            color: #FF5A5F;
+            font-size: 1.2rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            li {
+                border: $border;
+                border-radius: $border-radius;
+                padding: 2vh 1vw;
+                flex: 1;
+                margin-right: 1vw;
+
+                strong {
+                    font-size: 1.3rem;
+                    display: block;
+                }
+
+                &:hover {
+                    box-shadow: 0 0 5px #CC484C;
+                    cursor: pointer;
                 }
             }
         }

@@ -216,13 +216,15 @@ const Order = props => {
 
             { backOrderProducts.length > 0 ?
                 <Modal>
-                    <h1>This product is in back order</h1>
-                    <h2>[{backOrderProducts[0].code}] {backOrderProducts[0].name}</h2>
-                    <span>Please select one of these options</span>
-                    <BackOrderOptions
-                        options={backOrderOptions}
-                        product={backOrderProducts[0]}
-                        selectOption={id => selectOption(id, backOrderProducts[0].id)} />
+                    <div className="BackOrderModal">
+                        <h1>This product is in back order...</h1>
+                        <h2>[{backOrderProducts[0].code}] {backOrderProducts[0].name}</h2>
+                        <span>Please select one of these options</span>
+                        <BackOrderOptions
+                            options={backOrderOptions}
+                            product={backOrderProducts[0]}
+                            selectOption={id => selectOption(id, backOrderProducts[0].id)} />
+                    </div>
                 </Modal>
             : null }
         </div>

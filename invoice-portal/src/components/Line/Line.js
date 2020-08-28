@@ -40,12 +40,12 @@ const Line = props => {
                     <td onClick={props.openProductModal}><span className="name">{props.product.name}</span></td>
                     <td>({props.product.dimensions})</td>
                     <td>{props.moneyFormat(props.product.unitPrice)}</td>
-                    <td>{props.product.format.name} ({props.product.format.qty} units)</td>
+                    <td><span>{props.product.format.name} ({props.product.format.qty} units)</span></td>
                     <td>
-                        {props.product.quantity} ({props.product.quantity * props.product.format.qty} units)
+                        <span>{props.product.quantity} ({props.product.quantity * props.product.format.qty} units)
                         { props.product.boQuantity > 0 ?
                             <span> (+ {props.product.boQuantity} {props.product.format.name}(s) / bo)</span>
-                        : null }
+                        : null }</span>
                     </td>
                     <td>{props.moneyFormat(props.product.subtotal)}</td>
                 </>
