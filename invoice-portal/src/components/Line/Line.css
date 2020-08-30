@@ -6,3 +6,7 @@
 .Line .name {
     cursor: pointer;
 }
+
+.Line span {
+    white-space: nowrap;
+}

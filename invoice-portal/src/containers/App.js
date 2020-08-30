@@ -3,7 +3,7 @@ import Order from './Order/Order';
 import Modal from '../components/Modal/Modal';
 import Product from '../components/Product/Product';
 
-import './App.css';
+import './App.scss';
 
 const App = props => {
     const [products, setProducts] = useState([]);
@@ -67,9 +67,11 @@ const App = props => {
 
     return (
         <div className="App">
-            <Order
-                openProductModal={id => setToggleModal({ open: true, product: id })}
-                products={products} user={user} />
+            <div id="app-content">
+                <Order
+                    openProductModal={id => setToggleModal({ open: true, product: id })}
+                    products={products} user={user} />
+            </div>
 
             { toggleModal.open ?
                 <Modal close={() => setToggleModal({ open: false, product: null })}>

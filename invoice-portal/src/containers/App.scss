@@ -1,0 +1,88 @@
+@import '../styles/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Alata&display=swap');
+
+.App {
+    padding: 0;
+    margin: 0;
+    background-image: $gradient;
+    min-height: 110vh;
+    color: $text;
+    font-family: $font-family;
+
+    header {
+        margin-top: 0;
+        min-height: 10vh;
+        max-width: 100vw;
+        background-color: $header-background;
+        display: flex;
+        padding: 0 $side-padding;
+    }
+
+    #app-content {
+        padding: 0 $side-padding;
+    }
+
+    button {
+        border: 2px solid $alt;
+        padding: 1vh 1vw;
+        border-radius: 5px;
+        background-color: #fff;
+        color: $alt;
+        font-weight: bold;
+        font-size: 1.05rem;
+
+        &:disabled {
+            background-color: $pale;
+            cursor: auto;
+
+            &:hover {
+                box-shadow: none;
+                cursor: auto;
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 0 5px $alt;
+            cursor: pointer;
+        }
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 1vh .5vw;
+        font-family: $font-family;
+        border: 1px solid $alt;
+        border-radius: 5px;
+        background-color: #fff;
+
+        &:disabled {
+            background-color: $pale;
+            cursor: auto;
+        }
+
+        &:focus {
+            box-shadow: 0 0 5px $alt;
+        }
+    }
+
+    .select {
+        select {
+            appearance: none;
+            cursor: pointer;
+            border-radius: 5px 0 0 5px;
+        }
+
+        &:after {
+            content: '\25bc';
+            font: 17px "Consolas", monospace;
+            padding: 1vh 5px;
+            color: #fff;
+            pointer-events: none;
+            background-color: $alt;
+            display: inline-block;
+            border-radius: 0 5px 5px 0;
+            border: 1px solid $alt;
+        }
+    }
+}

@@ -3,26 +3,41 @@ import Line from '../Line/Line';
 
 
 const ProductsValidation = props => {
+    const fillerTr = [...Array(5 - props.order.products.length).keys()].map(i => {
+        return (
+            <tr key={i}>
+                <td colSpan="7"/>
+            </tr>
+        )
+    });
+
     return (
         <div className="ProductsValidation">
-            <table>
-                <thead>
-                    <Line context={-1} />
-                </thead>
-                <tbody>
-                    {props.order.products.map((product, index) => {
-                        return <Line
-                            moneyFormat={nb => props.moneyFormat(nb)}
-                            product={product}
-                            context={2}
-                            openProductModal={() => props.openProductModal(product.id)}
-                            key={index} />
-                    })}
-                </tbody>
-            </table>
-            <p>Total: <strong>{props.moneyFormat(props.total)}</strong></p>
-            <button onClick={props.back}>Edit order</button>
-            <button onClick={props.submit}>Next step</button>
+            <div className="table-wrapper">
+                <table>
+                    <thead>
+                        <Line context={-1} />
+                    </thead>
+                    <tbody>
+                        {props.order.products.map((product, index) => {
+                            return <Line
+                                moneyFormat={nb => props.moneyFormat(nb)}
+                                product={product}
+                                context={2}
+                                openProductModal={() => props.openProductModal(product.id)}
+                                key={index} />
+                        })}
+                        {fillerTr}
+                    </tbody>
+
+                    <caption>
+                        <div className="psa">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis lobortis malesuada. Sed maximus imperdiet tempus. Quisque a gravida ligula.</div>
+                        <p>Total: <strong>{props.moneyFormat(props.total)}</strong></p>
+                        <button onClick={props.back}>Edit order</button>
+                        <button onClick={props.submit}>Next step</button>
+                    </caption>
+                </table>
+            </div>
         </div>
     );
 }

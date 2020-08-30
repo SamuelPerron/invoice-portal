@@ -5,6 +5,7 @@ import OrderDelivery from '../../components/OrderDelivery/OrderDelivery';
 import OrderDone from '../../components/OrderDone/OrderDone';
 import BackOrderOptions from '../../components/BackOrderOptions/BackOrderOptions';
 import Modal from '../../components/Modal/Modal';
+import './Order.scss';
 
 const Order = props => {
     const [step, setStep] = useState(1);
@@ -207,7 +208,7 @@ const Order = props => {
 
     return (
         <div className="Order">
-            <h1>{title}</h1>
+            <div className="title-container"><h1>{title}</h1></div>
             { step === 1 ? stepOneJsx : null }
             { step === 2 ? stepTwoJsx : null }
             { step === 3 ? stepThreeJsx : null }
@@ -215,13 +216,15 @@ const Order = props => {
 
             { backOrderProducts.length > 0 ?
                 <Modal>
-                    <h1>This product is in back order</h1>
-                    <h2>[{backOrderProducts[0].code}] {backOrderProducts[0].name}</h2>
-                    <span>Please select one of these options</span>
-                    <BackOrderOptions
-                        options={backOrderOptions}
-                        product={backOrderProducts[0]}
-                        selectOption={id => selectOption(id, backOrderProducts[0].id)} />
+                    <div className="BackOrderModal">
+                        <h1>This product is in back order...</h1>
+                        <h2>[{backOrderProducts[0].code}] {backOrderProducts[0].name}</h2>
+                        <span>Please select one of these options</span>
+                        <BackOrderOptions
+                            options={backOrderOptions}
+                            product={backOrderProducts[0]}
+                            selectOption={id => selectOption(id, backOrderProducts[0].id)} />
+                    </div>
                 </Modal>
             : null }
         </div>
