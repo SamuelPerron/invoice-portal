@@ -163,4 +163,87 @@
             }
         }
     }
+
+    .OrderDelivery {
+        display: flex;
+        justify-content: space-between;
+
+        .OrderSummary {
+            border: $border;
+            border-radius: $border-radius;
+            padding: 0 1vw;
+            width: 28vw;
+            background-color: #fff;
+
+            ul {
+                padding: 0;
+                list-style: none;
+
+                li {
+                    margin-top: 1.5vh;
+                    text-align: right;
+                    border-bottom: $pale solid 1px;
+                    padding-bottom: 1.5vh;
+
+                    &:last-child {
+                        padding: 0;
+                        border: none;
+                    }
+
+                    &:first-child {
+                        padding-top: .5vh;
+                    }
+                }
+            }
+
+            strong:last-child {
+                display: block;
+                width: 100%;
+                text-align: right;
+                padding: 2vh 0;
+                font-size: 1.3rem;
+                border-top: $border;
+            }
+        }
+
+        button {
+            margin-left: 24vw;
+            width: 6vw;
+            margin-top: 2vh;
+        }
+
+        .options {
+            display: flex;
+            flex-flow: column;
+            width: 35vw;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                display: flex;
+
+                li {
+                    margin-right: 3vw;
+                    margin-bottom: 5vh;
+                    border: $border;
+                    border-radius: $border-radius;
+                    padding: 2vh 1vw;
+
+                    strong {
+                        font-size: 1.4rem;
+                        margin-right: 1vw;
+                    }
+                }
+            }
+
+            h3 {
+                font-size: 1.4rem;
+            }
+
+            textarea {
+                width: 80%;
+                height: 15vh;
+            }
+        }
+    }
 }

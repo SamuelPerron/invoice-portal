@@ -48,7 +48,8 @@
     }
 
     input,
-    select {
+    select,
+    textarea {
         padding: 1vh .5vw;
         font-family: $font-family;
         border: 1px solid $alt;

@@ -5,7 +5,7 @@ const OrderSummaryLine = props => {
         <li>
             <strong>[{props.product.code}] {props.product.name}</strong><br />
             <span>
-                {props.product.quantity} ({props.product.quantity * props.product.format.qty} units)
+                {props.product.quantity} {props.product.format.name}(s) ({props.product.quantity * props.product.format.qty} units)
                 { props.product.boQuantity > 0 ?
                     <span> (+ {props.product.boQuantity} {props.product.format.name}(s) / bo)</span>
                 : null }
